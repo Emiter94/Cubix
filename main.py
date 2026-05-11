@@ -38,7 +38,7 @@ STYLESHEET = """
     }
     QLineEdit:focus { border: 1px solid #4CAF50; }
     
-    /* Скроллбар для выпадающего списка */
+    /* Scrollbar */
     QComboBox QAbstractItemView {
         background-color: #1E1E1E;
         color: #FFF;
@@ -46,7 +46,7 @@ STYLESHEET = """
         border: 1px solid #333;
     }
 
-    /* Кнопка запуска */
+    /* Start button */
     QPushButton.actionBtn {
         background-color: #4CAF50;
         color: white;
@@ -80,7 +80,7 @@ STYLESHEET = """
     QPushButton#btnMin { background-color: #ffbd2e; }
     QPushButton#btnMin:hover { background-color: #ffad14; }
 
-    /* Панели */
+    /* Panels */
     #LeftPanel {
         background-color: #101419;
         border-top-left-radius: 16px;
@@ -92,7 +92,7 @@ STYLESHEET = """
         border-bottom-right-radius: 16px;
     }
     
-    /* Прогресс бар */
+    /* Progressbar */
     QProgressBar {
         border: none;
         background-color: #1E1E1E;
@@ -120,7 +120,7 @@ class VersionThread(QThread):
                 installed_ids.append(v['id'])
                 final_list.append(v['id'])
         except Exception as e:
-            print(f"Ошибка чтения локальных версий: {e}")
+            print(f"Error in reading local files: {e}")
 
         try:
             remote_list = minecraft_launcher_lib.utils.get_version_list()
@@ -130,7 +130,7 @@ class VersionThread(QThread):
                 elif v['type'] == 'snapshot' and v['id'] not in installed_ids:
                     final_list.append(v['id'])
         except Exception as e:
-            print(f"Ошибка подключения к Mojang: {e}")
+            print(f"Error in connection to Mojang: {e}")
         
         ver_list = sorted(final_list, reverse=True)
 
@@ -190,8 +190,9 @@ class LaunchThread(QThread):
                     "launcherName": "CUBIX",
                     "gameDirectory": self.mc_dir,
                     "jvmArguments": [
-                            "-javaagent:online_fix.jar=ely.by"
-                            "-Xmx10G -Xms10G"
+                            "-javaagent:online_fix.jar=ely.by",
+                            "-Xmx4G", 
+                            "-Xms4G"
                         ]
                 }
                 
